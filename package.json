@@ -1,0 +1,34 @@
+{
+  "name": "react-counter",
+  "private": true,
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "express": "4.16.2",
+    "pug": "2.0.0-rc.4",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "4.2.0",
+    "react-router-dom": "^4.2.2",
+    "reason-react": "0.2.4"
+  },
+  "devDependencies": {
+    "babel-loader": "7.1.2",
+    "bs-platform": "^2.0.0",
+    "webpack": "^3.8.1"
+  }
+}
