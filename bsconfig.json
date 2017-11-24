@@ -5,7 +5,12 @@
   "package-specs": [{
     "module": "es6"
   }],
-  "sources": "src/components",
+  "sources": [
+    {
+      "dir": "src/components",
+      "subdirs": true
+    }
+  ],
   "suffix": ".js",
   "refmt": 3
 }

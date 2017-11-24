@@ -7,7 +7,7 @@ let make = (_children) => {
   render: (_self) =>
     <div>
       <h1> (str("About Me")) </h1>
-      <p> (str("This is a small paragraph about my developer life...")) </p>
+      <p> (str("This is a small paragraph about my life...")) </p>
     </div>
 };
 
