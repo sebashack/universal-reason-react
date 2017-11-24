@@ -2,18 +2,21 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Link  } from 'react-router-dom';
 import Home from '../../lib/es6/src/components/Home.js';
-import Layout from '../../lib/es6/src/components/Layout.js';
+import About from '../../lib/es6/src/components/About.js';
+import makeLayout from '../../lib/es6/src/components/Layout.js';
 
-const LayoutWrapper = (props) => {
-  const LO = Layout(props.children);
-  return <LO/>;
+
+const Layout = (props) => {
+  const Wrapper = makeLayout(props.children);
+  return <Wrapper/>;
 };
 
 render(
   <Router>
-    <LayoutWrapper>
+    <Layout>
       <Route exact path='/' component={Home}/>
-    </LayoutWrapper>
+      <Route path='/about' component={About}/>
+    </Layout>
   </Router>,
   document.getElementById('root')
 );

@@ -1,15 +1,13 @@
 let str = ReasonReact.stringToElement;
 
-let component = ReasonReact.statelessComponent("Home");
+let component = ReasonReact.statelessComponent("About");
 
 let make = (_children) => {
   ...component,
   render: (_self) =>
     <div>
-      <h1> (str("Home")) </h1>
-      <a href="#"> (str("Page 1")) </a>
-      <br />
-      <a href="#"> (str("Page 2")) </a>
+      <h1> (str("About Me")) </h1>
+      <p> (str("This is a small paragraph about my developer life...")) </p>
     </div>
 };
 
