@@ -6,13 +6,13 @@ let component = ReasonReact.statelessComponent("Layout");
 
 let make = (children) => {
   ...component,
-  render: (self) =>
+  render: (_self) =>
     <div>
       <div>
         <nav className="navbar navbar-default">
           <div className="container">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#"> (str("Reason Life")) </a>
+              <Link to_="/" className="navbar-brand"> (str("Reason Life")) </Link>
             </div>
           </div>
         </nav>
