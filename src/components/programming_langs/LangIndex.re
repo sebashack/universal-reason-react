@@ -10,7 +10,12 @@ let make = (_children) => {
       <br />
       <div className="container">
         <div className="row">
-          <div className="col-md-4"> <h2 className="text-center"> (str("Haskell")) </h2> </div>
+          <div className="col-md-4">
+            <h2 className="text-center"> (str("Haskell")) </h2>
+            <div className="img-thumbnail">
+              <img src="/assets/haskell.png" width="300" height="200" />
+            </div>
+          </div>
           <div className="col-md-4"> <h2 className="text-center"> (str("Scala")) </h2> </div>
           <div className="col-md-4"> <h2 className="text-center"> (str("Reason")) </h2> </div>
         </div>

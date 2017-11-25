@@ -11,7 +11,7 @@ let make = (_children) => {
       <ul>
         <li> <Link to_="/about"> (str("About")) </Link> </li>
         <li> <Link to_="/contact"> (str("Contact")) </Link> </li>
-        <li> <Link to_="/programming/languages"> (str("Programming Languages")) </Link> </li>
+        <li> <Link to_="/programming"> (str("Programming Languages")) </Link> </li>
       </ul>
       <br />
     </div>
