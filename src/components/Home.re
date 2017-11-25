@@ -7,7 +7,12 @@ let make = (_children) => {
   render: (_self) =>
     <div>
       <h1> (str("Welcome to my Blog")) </h1>
-      <Link to_="/about"> (str("About")) </Link>
+      <br />
+      <ul>
+        <li> <Link to_="/about"> (str("About")) </Link> </li>
+        <li> <Link to_="/contact"> (str("Contact")) </Link> </li>
+        <li> <Link to_="/programming/languages"> (str("Programming Languages")) </Link> </li>
+      </ul>
       <br />
     </div>
 };
