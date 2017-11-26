@@ -16,13 +16,10 @@ const Layout = (props) => {
 
 
 // Subrouter for programming languages
-const LangsIndex = (props) => {
-  const Wrapper = makeLangsIndex(props.children);
-  return <Wrapper path="/programming" />;
-};
-
 class LangsRouter extends React.Component {
   render() {
+    let LangsIndex = makeLangsIndex(this.props.match.url);
+    console.log(this.props.match.url);
     return(
       <div>
         <Route exact path={this.props.match.url} component={LangsIndex}/>

@@ -26,7 +26,11 @@ let make = (~path: string, children_routes) => {
   ...component,
   render: (_self) =>
     <div>
-      <h1> (str("My Favorite programming languages")) </h1>
+      <h1 className="text-center">
+        <strong> (str("My Favorite programming languages")) </strong>
+      </h1>
+      <br />
+      <br />
       <div className="container">
         <div className="row">
           <LangPreview path lang="haskell" />
@@ -37,5 +41,5 @@ let make = (~path: string, children_routes) => {
     </div>
 };
 
-let default = (children_routes) =>
-  ReasonReact.wrapReasonForJs(~component, (jsProps) => make(~path=jsProps##path, children_routes));
+let default = (path: string) =>
+  ReasonReact.wrapReasonForJs(~component, (_jsProps) => make(~path, [||]));
