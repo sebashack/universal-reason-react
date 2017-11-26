@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link, Switch  } from 'react-router-dom'
 import Home from '../../lib/es6/src/components/Home.js';
 import About from '../../lib/es6/src/components/About.js';
 import Contact from '../../lib/es6/src/components/Contact.js';
+import NotFound from '../../lib/es6/src/components/NotFound.js';
 import LangDetail from '../../lib/es6/src/components/programming_langs/LangDetail.js';
 import makeLangsIndex from '../../lib/es6/src/components/programming_langs/LangIndex.js';
 import makeLayout from '../../lib/es6/src/components/Layout.js';
@@ -33,10 +34,13 @@ class LangsRouter extends React.Component {
 render(
   <Router>
     <Layout>
-      <Route exact path='/' component={Home}/>
-      <Route path='/about' component={About}/>
-      <Route path='/contact' component={Contact}/>
-      <Route path='/programming' component={LangsRouter} />
+      <Switch>
+        <Route exact path='/' component={Home}/>
+        <Route path='/about' component={About}/>
+        <Route path='/contact' component={Contact}/>
+        <Route path='/programming' component={LangsRouter} />
+        <Route component={NotFound} />
+      </Switch>
     </Layout>
   </Router>,
   document.getElementById('root')
