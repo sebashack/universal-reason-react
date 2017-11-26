@@ -1,26 +1,41 @@
 let str = ReasonReact.stringToElement;
 
+let arr = ReasonReact.arrayToElement;
+
+module LangPreview = {
+  let component = ReasonReact.statelessComponent("LangPreview");
+  let make = (~path, ~lang, _children) => {
+    ...component,
+    render: (_self) =>
+      <div className="col-md-4">
+        <div className="img-thumbnail">
+          <Link to_=(path ++ "/" ++ lang)>
+            <img src=("/assets/" ++ lang ++ ".png") width="250" height="200" />
+          </Link>
+        </div>
+      </div>
+  };
+};
+
+/* Index Component */
+type state = bool;
+
 let component = ReasonReact.statelessComponent("LangsIndex");
 
-let make = (_children) => {
+let make = (~path: string, children_routes) => {
   ...component,
   render: (_self) =>
     <div>
-      <h1 className="text-center"> (str("My favorite programming languages")) </h1>
-      <br />
+      <h1> (str("My Favorite programming languages")) </h1>
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <h2 className="text-center"> (str("Haskell")) </h2>
-            <div className="img-thumbnail">
-              <img src="/assets/haskell.png" width="300" height="200" />
-            </div>
-          </div>
-          <div className="col-md-4"> <h2 className="text-center"> (str("Scala")) </h2> </div>
-          <div className="col-md-4"> <h2 className="text-center"> (str("Reason")) </h2> </div>
+          <LangPreview path lang="haskell" />
+          <LangPreview path lang="scala" />
+          <LangPreview path lang="reason" />
         </div>
       </div>
     </div>
 };
 
-let default = ReasonReact.wrapReasonForJs(~component, (_jsProps) => make([||]));
+let default = (children_routes) =>
+  ReasonReact.wrapReasonForJs(~component, (jsProps) => make(~path=jsProps##path, children_routes));
