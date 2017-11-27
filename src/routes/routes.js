@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { StaticRouter as SRouter, Switch, Link, Route } from 'react-router-dom';
 import Home from '../../lib/js/src/components/Home.js';
 import About from '../../lib/js/src/components/About.js';
 import Contact from '../../lib/js/src/components/Contact.js';
@@ -11,9 +10,6 @@ import makeLayout from '../../lib/js/src/components/Layout.js';
 
 // NOTE: We ware using commonjs compilation instead of es6 due to issues with
 // node-externals webpack plug-in...
-
-// Also note that we are not using the BrowserRouter, but the StaticRouter.
-
 
 const Layout = (props) => {
   const Wrapper = makeLayout(props.children);
