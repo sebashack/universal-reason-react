@@ -7,3 +7,4 @@ package-lock.json
 .babel_cache/
 dist
 app.bundle.js
+public/js
