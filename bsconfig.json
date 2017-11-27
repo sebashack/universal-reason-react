@@ -3,7 +3,7 @@
   "reason": {"react-jsx" : 2},
   "bs-dependencies": ["reason-react"],
   "package-specs": [{
-    "module": "es6"
+    "module": "commonjs"
   }],
   "sources": [
     {
