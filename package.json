@@ -15,8 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.5.7",
     "express": "4.16.2",
-    "pug": "2.0.0-rc.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "4.2.0",

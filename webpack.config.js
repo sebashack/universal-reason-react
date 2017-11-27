@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
-module.exports = {
+const server = {
   target: 'node',
   node: {
     __dirname: false
@@ -27,4 +27,27 @@ module.exports = {
       }
     ]
   }
+};
+
+const client = {
+  entry: path.join(__dirname, 'src', 'routes', 'client.js'),
+  output: {
+    path: path.join(__dirname, 'public', 'js'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: 'cacheDirectory=.babel_cache'
+        }
+      }
+    ]
+  }
+};
+
+module.exports = {
+  default: [client, server]
 };
