@@ -1,3 +1,3 @@
-# ReactReason and React-Router integration
+# ReasonReact and React-Router integration
 
-This code exemplifies one approach to integrate ReactReason with React-Router.
+This code exemplifies one approach to integrate ReasonReact with React-Router.
