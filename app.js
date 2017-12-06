@@ -19,26 +19,28 @@ app
     let markup = '';
     let status = 200;
 
-    const context = {};
+    // const context = {};
 
-   //  Main Static Router
-    class AppRouter extends React.Component {
-      render() {
-        return(
-            <Router location={this.props.url} context={this.props.context}>
-              <App />
-            </Router>
-        );
-      }
-    };
+    //  Main Static Router
+    // class AppRouter extends React.Component {
+    //   render() {
+    //     return(
+    //         <Router location={this.props.url} context={this.props.context}>
+    //           <App />
+    //         </Router>
+    //     );
+    //   }
+    // };
 
-    markup = renderToStaticMarkup(<AppRouter location={req.url} context={context} />);
+    // Let's investigate why the app is working without it.
+    // Remember to add <%- markup -%> in the view if necessary.
+    // markup = renderToStaticMarkup(<AppRouter location={req.url} context={context} />);
 
-    if(context.is404) {
-      status = 404;
-    }
+    // if(context.is404) {
+    //   status = 404;
+    // }
 
-    return res.status(status).render('index', { markup });
+    return res.status(status).render('index');
   });
 
 app.listen(port);
