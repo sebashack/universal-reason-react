@@ -1,9 +1,9 @@
 import path from 'path';
 import express from 'express';
-import React from 'react';
-import { StaticRouter as Router } from 'react-router-dom';
-import App from './src/routes/routes.js';
-import { renderToStaticMarkup } from 'react-dom/server';
+// import React from 'react';
+// import { StaticRouter as Router } from 'react-router-dom';
+// import App from './src/routes/routes.js';
+// import { renderToStaticMarkup } from 'react-dom/server';
 
 
 const port = process.env.PORT || 3000;
@@ -16,8 +16,9 @@ app.set('views', path.resolve(__dirname, 'views'));
 app
   .use(express.static(path.resolve(__dirname, 'public')))
   .get('*', (req, res) => {
-    let markup = '';
     let status = 200;
+
+    // let markup = '';
 
     // const context = {};
 
