@@ -1,7 +1,7 @@
 {
   "name": "react-counter",
   "reason": {"react-jsx" : 2},
-  "bs-dependencies": ["reason-react"],
+  "bs-dependencies": ["reason-react", "bs-fetch"],
   "package-specs": [{
     "module": "commonjs"
   }],

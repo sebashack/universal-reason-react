@@ -6,6 +6,7 @@ import About from '../../lib/js/src/components/About.js';
 import Contact from '../../lib/js/src/components/Contact.js';
 import NotFound from '../../lib/js/src/components/NotFound.js';
 import LangDetail from '../../lib/js/src/components/programming_langs/LangDetail.js';
+import RepoIndex from '../../lib/js/src/components/repos/RepoIndex.js';
 import makeLangsIndex from '../../lib/js/src/components/programming_langs/LangIndex.js';
 import makeLayout from '../../lib/js/src/components/Layout.js';
 
@@ -21,11 +22,11 @@ const Layout = (props) => {
 // Subrouter for programming languages
 class LangsRouter extends React.Component {
   render() {
-    let LangsIndex = makeLangsIndex(this.props.match.url);
+    let LangIndex = makeLangsIndex(this.props.match.url);
 
     return(
       <div>
-        <Route exact path={this.props.match.url} component={LangsIndex}/>
+        <Route exact path={this.props.match.url} component={LangIndex}/>
         <Route exact path={`${this.props.match.url}/:lang`} component={LangDetail}/>
       </div>
     );
@@ -40,6 +41,7 @@ const App = (props) =>
           <Route path='/about' component={About}/>
           <Route path='/contact' component={Contact}/>
           <Route path='/programming' component={LangsRouter} />
+          <Route path='/repos' component={RepoIndex} />
           <Route component={NotFound} />
         </Switch>
       </Layout>;
