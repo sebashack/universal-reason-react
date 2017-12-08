@@ -4,7 +4,7 @@ type repo = {
   name: string
 };
 
-type repos = list(repo);
+type repos = array(repo);
 
 let decode_repo = (json) : repo =>
   Json.Decode.{
