@@ -8,7 +8,7 @@ let fetch_repos = (url, callback) =>
     |> then_(
          (json) => {
            callback("Your wonderful repos!!!!");
-           Js.log(json);
+           Js.log(DecodeRepo.decode_repos(json));
            resolve()
          }
        )
