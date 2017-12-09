@@ -23,7 +23,7 @@ module RepoDetail = {
     render: (_self) =>
       <tr>
         <td> (str(repo.name)) </td>
-        <td> (str(repo.url)) </td>
+        <td> <a target="_blank" href=repo.url> (str(repo.url)) </a> </td>
         <td> (str(repo.language)) </td>
       </tr>
   };
@@ -40,7 +40,7 @@ type action =
   | Loading
   | Clean;
 
-let render_table = (repo: DecodeRepo.repo) => <RepoDetail repo />;
+let render_row = (repo: DecodeRepo.repo) => <RepoDetail key=(string_of_int(repo.id)) repo />;
 
 let component = ReasonReact.reducerComponent("RepoIndex");
 
@@ -82,13 +82,19 @@ let make = (_children) => {
             <div className="container">
               <h3> (str("This is a list of all my github repos: ")) </h3>
               <table className="table">
-                <tr>
-                  <th> (str("Name")) </th>
-                  <th> (str("Url")) </th>
-                  <th> (str("Language")) </th>
-                </tr>
-                <tbody> (arr(Array.map(render_table, repos))) </tbody>
+                <thead>
+                  <tr>
+                    <th> (str("Name")) </th>
+                    <th> (str("Url")) </th>
+                    <th> (str("Language")) </th>
+                  </tr>
+                </thead>
+                <tbody> (arr(Array.map(render_row, repos))) </tbody>
               </table>
+              <br />
+              <br />
+              <br />
+              <br />
             </div>
           }
         )

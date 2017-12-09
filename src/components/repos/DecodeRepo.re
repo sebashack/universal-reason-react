@@ -1,4 +1,5 @@
 type repo = {
+  id: int,
   url: string,
   language: string,
   name: string
@@ -8,7 +9,8 @@ type repos = array(repo);
 
 let decode_repo = (json) : repo =>
   Json.Decode.{
-    url: json |> field("url", string),
+    id: json |> field("id", int),
+    url: json |> field("html_url", string),
     language: json |> field("language", string),
     name: json |> field("name", string)
   };
