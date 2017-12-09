@@ -31,12 +31,14 @@ module RepoDetail = {
 
 type state = {
   repos: DecodeRepo.repos,
+  show: bool,
   message: string
 };
 
 type action =
   | Loaded(DecodeRepo.repos)
-  | Loading;
+  | Loading
+  | Clean;
 
 let render_table = (repo: DecodeRepo.repo) => <RepoDetail repo />;
 
@@ -48,28 +50,33 @@ let make = (_children) => {
       () =>
         fetch_repos("https://api.github.com/users/sebashack/repos", reduce((data) => Loaded(data)))
         |> ignore,
-      4000
+      3000
     );
     reduce((_) => Loading, [||])
   };
+  let clean_repos = (reduce) => reduce((_) => Clean, [||]);
   {
     ...component,
-    initialState: () => {repos: [||], message: ""},
+    initialState: () => {repos: [||], show: false, message: ""},
     reducer: (action, state) =>
       switch action {
-      | Loading => ReasonReact.Update({...state, message: "Loading repositories ..."})
-      | Loaded(data) => ReasonReact.Update({...state, repos: data})
+      | Loading => ReasonReact.Update({...state, message: "Loading repositories... "})
+      | Loaded(data) => ReasonReact.Update({...state, show: true, repos: data})
+      | Clean => ReasonReact.Update({show: false, message: "", repos: [||]})
       },
-    render: ({state: {repos, message}, reduce}) =>
+    render: ({state: {repos, show, message}, reduce}) => {
+      let click_msg = show ? "Clean repos" : "Click to see my repos!";
+      let click_reduce = show ? clean_repos : load_repos;
       <div>
         <h1> (str("My Repositories")) </h1>
         <br />
-        <button onClick=((_evt) => load_repos(reduce))> (str("Click to see my repos!")) </button>
+        <br />
+        <button onClick=((_evt) => click_reduce(reduce))> (str(click_msg)) </button>
         <br />
         <br />
         <br />
         (
-          if (Array.length(repos) === 0) {
+          if (! show) {
             <h3> (str(message)) </h3>
           } else {
             <div className="container">
@@ -86,6 +93,7 @@ let make = (_children) => {
           }
         )
       </div>
+    }
   }
 };
 
