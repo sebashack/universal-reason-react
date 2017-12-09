@@ -1,8 +1,9 @@
+[@bs.val] external setTimeout : (unit => unit, int) => unit = "";
+
 let str = ReasonReact.stringToElement;
 
 let arr = ReasonReact.arrayToElement;
 
-/* "https://api.github.com/users/sebashack/repos" */
 let fetch_repos = (url, callback) =>
   Js.Promise.(
     Fetch.fetch(url)
@@ -28,7 +29,10 @@ module RepoDetail = {
   };
 };
 
-type state = DecodeRepo.repos;
+type state = {
+  repos: DecodeRepo.repos,
+  message: string
+};
 
 type action =
   | Loaded(DecodeRepo.repos)
@@ -40,20 +44,23 @@ let component = ReasonReact.reducerComponent("RepoIndex");
 
 let make = (_children) => {
   let load_repos = (reduce) => {
-    fetch_repos("https://api.github.com/users/sebashack/repos", reduce((data) => Loaded(data)))
-    |> ignore;
-    reduce((_) => Loading);
-    ()
+    setTimeout(
+      () =>
+        fetch_repos("https://api.github.com/users/sebashack/repos", reduce((data) => Loaded(data)))
+        |> ignore,
+      4000
+    );
+    reduce((_) => Loading, [||])
   };
   {
     ...component,
-    initialState: () => [||],
-    reducer: (action, _) =>
+    initialState: () => {repos: [||], message: ""},
+    reducer: (action, state) =>
       switch action {
-      | Loading => ReasonReact.Update([||])
-      | Loaded(data) => ReasonReact.Update(data)
+      | Loading => ReasonReact.Update({...state, message: "Loading repositories ..."})
+      | Loaded(data) => ReasonReact.Update({...state, repos: data})
       },
-    render: ({state: repos, reduce}) =>
+    render: ({state: {repos, message}, reduce}) =>
       <div>
         <h1> (str("My Repositories")) </h1>
         <br />
@@ -63,7 +70,7 @@ let make = (_children) => {
         <br />
         (
           if (Array.length(repos) === 0) {
-            <h3> (str("My repos are not loaded ...")) </h3>
+            <h3> (str(message)) </h3>
           } else {
             <div className="container">
               <h3> (str("This is a list of all my github repos: ")) </h3>
