@@ -36,6 +36,7 @@ type state = {
 type action =
   | Loaded(DecodeRepo.repos)
   | Loading
+  | LoadError
   | Clean;
 
 let render_row = (repo: DecodeRepo.repo) => <RepoDetail key=(string_of_int(repo.id)) repo />;
@@ -44,18 +45,23 @@ let component = ReasonReact.reducerComponent("RepoIndex");
 
 let make = (_children) => {
   let load_repos = (reduce) => {
-    setTimeout(
-      () =>
-        fetch_repos("https://api.github.com/users/sebashack/repos", reduce((data) => Loaded(data)))
-        |> Js.Promise.catch(
-             (err) => {
-               Js.log(err);
-               Js.Promise.resolve()
-             }
-           ),
-      3000
-    );
-    reduce((_) => Loading, [||])
+    reduce((_) => Loading, [||]);
+    setTimeout
+      /* Simulate a heavy request with setTimeout */
+      (
+        () =>
+          fetch_repos(
+            "https://api.github.com/users/sebashack/repos",
+            reduce((data) => Loaded(data))
+          )
+          |> Js.Promise.catch(
+               (_) => {
+                 reduce((_) => LoadError, [||]);
+                 Js.Promise.resolve()
+               }
+             ),
+        3000
+      )
   };
   let clean_repos = (reduce) => reduce((_) => Clean, [||]);
   {
@@ -65,6 +71,8 @@ let make = (_children) => {
       switch action {
       | Loading => ReasonReact.Update({...state, message: "Loading repositories... "})
       | Loaded(data) => ReasonReact.Update({...state, show: true, repos: data})
+      | LoadError =>
+        ReasonReact.Update({...state, message: "Sorry there was an error...", show: false})
       | Clean => ReasonReact.Update({show: false, message: "", repos: [||]})
       },
     render: ({state: {repos, show, message}, reduce}) => {
