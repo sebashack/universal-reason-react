@@ -1,20 +1,18 @@
-[@bs.val] external setTimeout : (unit => unit, int) => unit = "";
+[@bs.val] external setTimeout : (unit => Js.Promise.t(unit), int) => unit = "";
 
 let str = ReasonReact.stringToElement;
 
 let arr = ReasonReact.arrayToElement;
 
 let fetch_repos = (url, callback) =>
-  Js.Promise.(
-    Fetch.fetch(url)
-    |> then_(Fetch.Response.json)
-    |> then_(
-         (json) => {
-           callback(DecodeRepo.decode_repos(json));
-           resolve()
-         }
-       )
-  );
+  Fetch.fetch(url)
+  |> Js.Promise.then_(Fetch.Response.json)
+  |> Js.Promise.then_(
+       (json) => {
+         callback(DecodeRepo.decode_repos(json));
+         Js.Promise.resolve()
+       }
+     );
 
 module RepoDetail = {
   let component = ReasonReact.statelessComponent("RepoDetail");
@@ -49,7 +47,12 @@ let make = (_children) => {
     setTimeout(
       () =>
         fetch_repos("https://api.github.com/users/sebashack/repos", reduce((data) => Loaded(data)))
-        |> ignore,
+        |> Js.Promise.catch(
+             (err) => {
+               Js.log(err);
+               Js.Promise.resolve()
+             }
+           ),
       3000
     );
     reduce((_) => Loading, [||])
@@ -91,7 +94,6 @@ let make = (_children) => {
                 </thead>
                 <tbody> (arr(Array.map(render_row, repos))) </tbody>
               </table>
-              <br />
               <br />
               <br />
               <br />
